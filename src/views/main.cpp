@@ -9,12 +9,16 @@ int main() {
     int opcion;
 
     do {
-        cout << "Mascotas" << endl;
+        cout << "Mascotas y Propietarios:" << endl;
         cout << "1. Anadir mascota" << endl;
         cout << "2. Ver lista de mascotas" << endl;
         cout << "3. Actualizar mascota" << endl;
         cout << "4. Eliminar mascota" << endl;
-        cout << "5. Salir" << endl;
+        cout << "5. Anadir propietario" << endl;
+        cout << "6. Ver lista de propietarios" << endl;
+        cout << "7. Actualizar propietario" << endl;
+        cout << "8. Eliminar propietario" << endl;
+        cout << "9. Salir" << endl;
         cout << "Seleccione: ";
         cin >> opcion;
 
@@ -83,14 +87,78 @@ int main() {
                 break;
             }
 
-            case 5:
+            case 5: {
+                int id;
+                string nombre, telefono;
+                cout << "Ingrese id: ";
+                cin >> id;
+                cout << "Ingrese nombre: ";
+                cin.ignore();
+                getline(cin, nombre);
+                cout << "Ingrese telefono: ";
+                getline(cin, telefono);
+
+                if (controller.createOwner(id, nombre, telefono)) {
+                    cout << "Propietario creado." << endl;
+                } else {
+                    cout << "Error al crear el propietario." << endl;
+                }
+                break;
+            }
+
+            case 6: {
+                string output;
+                if (controller.getAllOwners(output)) {
+                    cout << "Lista de propietarios:" << endl;
+                    cout << output;
+                } else {
+                    cout << "Error al leer los propietarios." << endl;
+                }
+                break;
+            }
+
+            case 7: {
+                int id, nuevoId;
+                string nuevoNombre, nuevoTelefono;
+                cout << "Ingrese id del propietario a actualizar: ";
+                cin >> id;
+                cout << "Ingrese nuevo id: ";
+                cin >> nuevoId;
+                cout << "Ingrese nuevo nombre: ";
+                cin.ignore();
+                getline(cin, nuevoNombre);
+                cout << "Ingrese nuevo telefono: ";
+                getline(cin, nuevoTelefono);
+
+                if (controller.updateOwner(id, nuevoId, nuevoNombre, nuevoTelefono)) {
+                    cout << "Propietario actualizado." << endl;
+                } else {
+                    cout << "Error al actualizar el propietario." << endl;
+                }
+                break;
+            }
+
+            case 8: {
+                int id;
+                cout << "Ingrese id del propietario a eliminar: ";
+                cin >> id;
+
+                if (controller.deleteOwner(id)) {
+                    cout << "Propietario eliminado exitosamente." << endl;
+                } else {
+                    cout << "Error al eliminar el propietario." << endl;
+                }
+                break;
+            }
+
+            case 9:
                 cout << "Ha salido del programa." << endl;
                 break;
 
             default:
                 cout << "Opcion no valida. Intente nuevamente." << endl;
         }
-    } while (opcion != 5);
+    } while (opcion != 9);
 
     return 0;
 }

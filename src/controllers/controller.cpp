@@ -1,5 +1,6 @@
 #include "controller.h"
 #include "../models/pet.h"
+#include "../models/owner.h"
 
 using namespace std;
 
@@ -20,4 +21,22 @@ bool Controller::updatePet(int id, int newId, string newNombre, string newAnimal
 
 bool Controller::deletePet(int id) {
     return Pet::deletePet(id);
+}
+
+bool Controller::createOwner(int id, string nombre, string telefono) {
+    Owner owner(id, nombre, telefono);
+    return Owner::createOwner(owner);
+}
+
+bool Controller::getAllOwners(string &output) {
+    return Owner::readAllOwners(output);
+}
+
+bool Controller::updateOwner(int id, int newId, string newNombre, string newTelefono) {
+    Owner newOwner(newId, newNombre, newTelefono);
+    return Owner::updateOwner(id, newOwner);
+}
+
+bool Controller::deleteOwner(int id) {
+    return Owner::deleteOwner(id);
 }
